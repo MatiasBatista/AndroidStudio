@@ -86,6 +86,22 @@ public class UsuarioBD extends SQLiteOpenHelper implements IusuarioBD{
 
     @Override
     public boolean validacion(String username, String password) {
-        return false;
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor= database.rawQuery("SELECT * FROM usuarios WHERE username= '" +username+"' and password='"+password+"'",null);
+        try{
+            if (cursor.moveToNext()){
+                return true;
+            }
+            else return false;
+        }
+        catch (Exception e ){
+            Log.d("TAG","Error  validacion(username,password) UsuarioBD" + e.getMessage());
+            throw e;
+        }
+        finally {
+            if(cursor != null){
+                cursor.close();
+            }
+        }
     }
 }

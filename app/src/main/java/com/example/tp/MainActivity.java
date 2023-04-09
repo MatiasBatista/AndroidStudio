@@ -3,6 +3,7 @@ package com.example.tp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -41,9 +42,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.login:
                 UsuarioBD usuarioBD=new UsuarioBD(context,"UsuarioBD.db",null,1);
                 Usuario usuario= usuarioBD.elemento(username.getText().toString());
-                Toast.makeText(context,usuario.getNombre(),Toast.LENGTH_LONG).show();
+                if(usuarioBD.validacion(username.getText().toString(),password.getText().toString())){
+                    Toast.makeText(context,usuario.getNombre(),Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(context,HomeActivity.class);
+                    i.putExtra("nombre",username.getText().toString());
+                    startActivity(i);
+                }
                 break;
-
+            case R.id.registrar:
+                Intent i = new Intent(context,RegistrarActivity.class);
+                startActivity(i);
+                break;
         }
     }
 }

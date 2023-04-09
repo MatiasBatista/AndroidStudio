@@ -8,8 +8,7 @@ public class Usuario {
     private String apellido;
 
 
-    public Usuario(int id,String username, String password, String nombre, String apellido) {
-        this.id=id;
+    public Usuario(String username, String password, String nombre, String apellido) {
         this.username = username;
         this.password = password;
         this.nombre = nombre;
